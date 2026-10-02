@@ -1,0 +1,30 @@
+# Agent manifest — the registry entry point.
+# Every key below is read at ROOT level; do NOT nest them under an `agent:`
+# block. Runtime parameters live in config/config.yaml and are passed to the
+# graph separately — a runtime value placed here is read by nothing.
+id: "INS-C2-031"
+name: "MicroinsuranceProductQAAgent"
+namespace: "ins"
+version: "0.1.0"
+enabled: true
+category: "Cat 2"
+# Static generation contract: this template composes its answer from retrieved
+# passages and invokes no model.
+generation_mode: "deterministic"  # deterministic | llm
+industry: "INS"
+
+# Opaque compatibility metadata; not an inheritance selector.
+base_type: "RAGAgent"
+
+# Entry point — single dotted import path (module.Class), not split module/class.
+class: "src.graph.graph.MicroinsuranceProductQAAgent"
+
+# Minimum caller trust the agent's own boundary enforces.
+required_trust_level: "VERIFIED_EXTERNAL"
+
+# Compile-time gates. Declare every secret this agent requires and every extra
+# it constructs; both lists are empty because it does neither — the retrieval
+# corpus is bundled and no client is built.
+requires:
+  secrets: []
+  extras: []
